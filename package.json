@@ -6,7 +6,6 @@
   "dependencies": {
     "@types/jest": "23.3.13",
     "@types/node": "10.12.21",
-    "@types/react": "16.8.1",
     "@types/react-dom": "16.0.11",
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
@@ -30,5 +29,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/react": "^16.8.1",
+    "terser": "^3.14.1"
+  }
 }
