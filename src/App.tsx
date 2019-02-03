@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Switch, Route, RouteComponentProps} from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route exact path={"/:lng(en|lt)?"} component={Sample} />
-        </Switch>
+          <Route exact path={"/:lng(en|tl|ceb)?"} render={(props) => <Language {...props}/>} />
       </BrowserRouter>
     );
   }
@@ -17,10 +13,15 @@ class App extends Component {
 
 export default App;
 
-class Sample extends Component{
+class Language extends Component<any, any>{
+  constructor(props: RouteComponentProps) {
+    super(props);
+  }
+
   render(){
+    const lang: {lng?: string} = this.props.match.params;
     return (
-      <div>OH DUDE</div>
+      <div>OH DUDE {lang.lng}</div>
     );
   }
 }
