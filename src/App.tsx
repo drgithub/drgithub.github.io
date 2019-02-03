@@ -7,6 +7,7 @@ class App extends Component {
   parameter: string = ["/:lang(" + this.langlist  + ")?"].join("");
 
   render() {
+    {/** SHIFT TO BROWSER ROUTER IF IN PRODUCTION, USE HASHROUTER IF USING GH PAGES */}
     return (
       <HashRouter>
         <Switch>
