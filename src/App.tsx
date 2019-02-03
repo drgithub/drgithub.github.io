@@ -24,7 +24,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path={this.parameter} render={(props) => <Base {...props}/>} />
-          <Route render={(props) => <BaseError/>} />
+          <Route component={BaseError} />
         </Switch>
       </BrowserRouter>
     );
@@ -42,7 +42,6 @@ class Base extends Component<Props, State>{
     const langparam: {lang?: string} = this.props.match.params;
     const locale: Locale = languages.filter((value: Locale) => value.code === langparam.lang).first();
     const alocale: Locale | undefined = languages.find((value: Locale) => value.active);
-
     this.state = {
       locale: locale || alocale
     };
