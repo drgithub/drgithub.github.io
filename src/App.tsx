@@ -3,17 +3,17 @@ import {BrowserRouter, Switch, Route, RouteComponentProps} from 'react-router-do
 import {List} from "immutable";
 
 type Locale = {
-  name  : string,
   code  : string,
+  name  : string,
   active : boolean 
 }
 
 const languages: List<Locale> = List([
-  {name : "Cebuano",  code: "ceb",  active: true},
-  {name : "Tagalog",  code: "tl",   active: true},
-  {name : "English",  code: "en",   active: true},
-  {name : "Spanish",  code: "es",   active: true},
-  {name : "German",   code: "de",   active: true}, 
+  {  code: "ceb", name : "Cebuano",   active: true  },
+  {  code: "tl",  name : "Tagalog",   active: true  },
+  {  code: "en",  name : "English",   active: true  },
+  {  code: "es",  name : "Spanish",   active: true  },
+  {  code: "de",  name : "German",    active: true  }, 
 ])
 class App extends Component {
   langlist: string = languages.map((lang)=> lang.active && lang.code).toArray().join("|");
