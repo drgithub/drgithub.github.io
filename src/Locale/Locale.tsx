@@ -16,8 +16,8 @@ export var current: Locale, msg: Messages;
 export const initLocale:(param?: string)=>void = (param) => {
     const alocale: Locale | undefined = Languages.find((value: Locale) => value.active);
     const locale: Locale = Languages.filter((value: Locale) => value.code === param).first() || alocale;
-    current = locale;
-    msg = require('./'+ locale.code +'/').get;
+    current = Object.assign({},locale);
+    msg     = Object.assign({},require('./'+ locale.code +'/').get);
 }
 // STATIC TEXTS/STRINGS/MESSAGES SHOULD BE DECLARED HERE AND IMPLEMENTED ON ./[code]/index.tsx
 export type Messages = {
