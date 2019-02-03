@@ -1,64 +1,47 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Route, RouteComponentProps} from 'react-router-dom';
-import {List} from "immutable";
+import {HashRouter, Switch, Route, RouteComponentProps} from 'react-router-dom';
+import {Languages, initLocale, msg} from "./Locale/Locale";
 
-type Locale = {
-  code  : string,
-  name  : string,
-  active : boolean 
-}
-
-const languages: List<Locale> = List([
-  {  code: "ceb", name : "Cebuano",   active: true  },
-  {  code: "tl",  name : "Tagalog",   active: true  },
-  {  code: "en",  name : "English",   active: true  },
-  {  code: "es",  name : "Spanish",   active: true  },
-  {  code: "de",  name : "German",    active: true  }, 
-])
 class App extends Component {
-  langlist: string = languages.map((lang)=> lang.active && lang.code).toArray().join("|");
+  langlist: string = Languages.map((lang)=> lang.active && lang.code).toArray().join("|");
   parameter: string = ["/:lang(" + this.langlist  + ")?"].join("");
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path={this.parameter} render={(props) => <Base {...props}/>} />
           <Route component={BaseError} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
 
 export default App;
 type Props = {} & RouteComponentProps;
-type State = {
-  locale: Locale;
-}
-class Base extends Component<Props, State>{
+class Base extends Component<Props>{
   constructor(props: RouteComponentProps) {
     super(props);
     const langparam: {lang?: string} = this.props.match.params;
-    const locale: Locale = languages.filter((value: Locale) => value.code === langparam.lang).first();
-    const alocale: Locale | undefined = languages.find((value: Locale) => value.active);
-    this.state = {
-      locale: locale || alocale
-    };
+    initLocale(langparam.lang);
   }
 
   render(){
-    
     return (
-      <div>OH DUDE {this.state.locale.code}</div>
+      <div>{msg.home}{msg.back}</div>
     );
   }
 }
 
 class BaseError extends Component{
+  constructor(props: any){
+    super(props);
+    initLocale();
+  }
   render(){
     return(
-      <div>EH :P</div>
+      <div>{msg.back}</div>
     );
   }
 }

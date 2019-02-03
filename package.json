@@ -2,7 +2,7 @@
   "name": "dino-blog",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://drgithub.github.io/",
+  "homepage": "http://drgithub.github.io/portfolio/",
   "dependencies": {
     "@types/immutable": "^3.8.7",
     "@types/jest": "23.3.13",
