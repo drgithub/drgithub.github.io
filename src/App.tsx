@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter,HashRouter, Switch, Route, RouteComponentProps, Router} from 'react-router-dom';
-import {initLocale, msg} from "./Locale/Locale";
+import {initLocale, localeCode, msg} from "./Locale/Locale";
 
 class App extends Component {
   render() {
@@ -26,12 +26,15 @@ class Base extends Component<Props>{
   }
 
   render(){
+    const base = `/${localeCode}`; 
+    const basepath = base === this.props.match.url && base || '';
+    
     return (
       <div>Welcome to Dino's Blog 
       <Switch>
-        <Route path={`${this.props.match.url}/about`} render={()=>{return <p>ABOUT</p>}}/>
-        <Route path={`${this.props.match.url}/contact`}  render={()=>{return <p>CONTACT</p>}}/>
-        <Route path={`${this.props.match.url}/blog`}  render={()=>{return <p>BLOG</p>}}/>
+        <Route path={`${basepath}/about`} render={()=>{return <p>ABOUT</p>}}/>
+        <Route path={`${basepath}/contact`}  render={()=>{return <p>CONTACT</p>}}/>
+        <Route path={`${basepath}/blog`}  render={()=>{return <p>BLOG</p>}}/>
       </Switch>
       </div>
     );

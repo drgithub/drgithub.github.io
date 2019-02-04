@@ -15,10 +15,11 @@ export const Languages: List<Locale> = List([
 {  code: "jpn",  name : "Japanese",  active: false  }, 
 {  code: "kor",  name : "Korean",    active: false  },
 ])
-export var current: Locale, msg: Messages;
+export var current: Locale, msg: Messages, localeCode:string;
 export const initLocale:(param?: string)=>void = (param) => {
     const alocale: Locale | undefined = Languages.find((value: Locale) => value.active);
     const locale: Locale = Languages.filter((value: Locale) => value.code === param && value.active).first() || alocale;
+    localeCode = locale.code;
     current = Object.assign({},locale);
     msg     = Object.assign({},require('./'+ locale.code +'/').get);
 }
