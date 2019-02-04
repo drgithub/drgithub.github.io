@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import {HashRouter, Switch, Route, RouteComponentProps} from 'react-router-dom';
-import {Languages, initLocale, msg} from "./Locale/Locale";
+import {BrowserRouter,HashRouter, Switch, Route, RouteComponentProps, Router} from 'react-router-dom';
+import {initLocale, msg} from "./Locale/Locale";
 
 class App extends Component {
-  langlist: string = Languages.map((lang)=> lang.active && lang.code).toArray().join("|");
-  parameter: string = ["/:lang(" + this.langlist  + ")?"].join("");
-
   render() {
     {/** SHIFT TO BROWSER ROUTER IF IN PRODUCTION, USE HASHROUTER IF USING GH PAGES */}
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
-          <Route exact path={this.parameter} render={(props) => <Base {...props}/>} />
-          <Route component={BaseError} />
+          <Route path={"/:lang?"} render={(props) => <Base {...props}/>} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
@@ -25,24 +21,19 @@ class Base extends Component<Props>{
   constructor(props: RouteComponentProps) {
     super(props);
     const langparam: {lang?: string} = this.props.match.params;
+
     initLocale(langparam.lang);
   }
 
   render(){
     return (
-      <div>{msg.home}{msg.back}</div>
-    );
-  }
-}
-
-class BaseError extends Component{
-  constructor(props: any){
-    super(props);
-    initLocale();
-  }
-  render(){
-    return(
-      <div>{msg.back}</div>
+      <div>Welcome to Dino's Blog 
+      <Switch>
+        <Route path={`${this.props.match.url}/about`} render={()=>{return <p>ABOUT</p>}}/>
+        <Route path={`${this.props.match.url}/contact`}  render={()=>{return <p>CONTACT</p>}}/>
+        <Route path={`${this.props.match.url}/blog`}  render={()=>{return <p>BLOG</p>}}/>
+      </Switch>
+      </div>
     );
   }
 }
