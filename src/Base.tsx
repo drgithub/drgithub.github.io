@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Switch, Route, RouteComponentProps, Router, Link} from 'react-router-dom';
-import {initLocale, getLink, PathsDB, Locale, current} from "./Locale/Locale";
+import {Switch, Route, RouteComponentProps, Link} from 'react-router-dom';
+import {initLocale, Paths, Locale, current, msg} from "./Locale/Locale";
 
 type Props = {} & RouteComponentProps;
 type State = {locale: Locale};
@@ -27,19 +27,23 @@ export class Base extends Component<Props, State>{
 
     return (
       <div>Welcome to Dino's Blog
-        <Link to={getLink(PathsDB.home,{id:10})} replace>HOME</Link>
-        <Link to={getLink(PathsDB.about)} replace>ABOUT ME</Link>
-        <Link to={getLink(PathsDB.contact)} replace>CONTACT ME</Link>
-        <Link to={getLink(PathsDB.blog)} replace>BLOG</Link>
+        <Link to={Paths.home()}replace>HOME</Link>
+        <Link to={Paths.about()} replace>ABOUT ME</Link>
+        <Link to={Paths.contact()} replace>CONTACT ME</Link>
+        <Link to={Paths.blog()} replace>BLOG</Link>
         <Link to={'/en'} >ENGLISH</Link>
         <Link to={'/ceb'} >CEBUANO</Link>
         <Link to={'/tl'} >TAGALOG</Link>
+        <br/>{msg.home}
+        <br/>{msg.ok}
+        <br/>{msg.cancel}
+        <br/>{msg.back}
       <Switch>
-        <Route path={getLink(PathsDB.about)} render={()=>{return <p>ABOUT</p>}}/>
-        <Route path={getLink(PathsDB.contact)}  render={()=>{return <p>CONTACT</p>}}/>
-        <Route path={getLink(PathsDB.blog)}  render={()=>{return <p>BLOG</p>}}/>
-        <Route path={getLink(PathsDB.admin)}  render={()=>{return <p>ADMIN</p>}}/>
-        <Route path={getLink(PathsDB.home)}  render={()=>{return <p>HOME</p>}}/>
+        <Route path={Paths.about()} render={()=>{return <p>ABOUT</p>}}/>
+        <Route path={Paths.contact()}  render={()=>{return <p>CONTACT</p>}}/>
+        <Route path={Paths.blog()}  render={()=>{return <p>BLOG</p>}}/>
+        <Route path={Paths.admin()}  render={()=>{return <p>ADMIN</p>}}/>
+        <Route path={Paths.home()}  render={()=>{return <p>HOME</p>}}/>
       </Switch>
       </div>
     );
