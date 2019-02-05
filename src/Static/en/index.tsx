@@ -1,4 +1,4 @@
-import { Messages } from '../Locale';
+import { Messages } from '../Messages';
 
 export const get: Messages = {
     home: "home",

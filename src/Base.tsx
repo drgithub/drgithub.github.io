@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Switch, Route, RouteComponentProps, Link} from 'react-router-dom';
-import {initLocale, Paths, Locale, current, msg} from "./Locale/Locale";
+import {initLocale, Paths, Locale, current, msg, Languages, pathname} from "./Static/Static";
 
 type Props = {} & RouteComponentProps;
 type State = {locale: Locale};
@@ -20,20 +20,19 @@ export class Base extends Component<Props, State>{
 
   propUpdate(){
     const langparam: {lang?: string} = this.props.match.params;
-    initLocale(this.props.match.url, langparam.lang);
+    initLocale(this.props.match.url,this.props.history.location.pathname, langparam.lang);
   }
 
   render(){
-
     return (
       <div>Welcome to Dino's Blog
         <Link to={Paths.home()}replace>HOME</Link>
         <Link to={Paths.about()} replace>ABOUT ME</Link>
         <Link to={Paths.contact()} replace>CONTACT ME</Link>
         <Link to={Paths.blog()} replace>BLOG</Link>
-        <Link to={'/en'} >ENGLISH</Link>
-        <Link to={'/ceb'} >CEBUANO</Link>
-        <Link to={'/tl'} >TAGALOG</Link>
+        <Link to={Paths.changelocale(Languages.en())} replace>ENGLISH</Link>
+        <Link to={Paths.changelocale(Languages.ceb())} replace>CEBUANO</Link>
+        <Link to={Paths.changelocale(Languages.tl())} replace>TAGALOG</Link>
         <br/>{msg.home}
         <br/>{msg.ok}
         <br/>{msg.cancel}
