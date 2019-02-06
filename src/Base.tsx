@@ -21,8 +21,6 @@ export class Base extends Component<Props, State>{
   propUpdate(){
     const langparam: {lang?: string} = this.props.match.params;
     initLocale(this.props.history.location.pathname, langparam.lang);
-    console.log(this.props.match);
-    console.log(Paths.home);
   }
 
   render(){
