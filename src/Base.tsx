@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route, RouteComponentProps, Link} from 'react-router-dom';
+import {Switch, Route, RouteComponentProps, Link, Redirect} from 'react-router-dom';
 import {initLocale, Paths, Locale, current, msg, Languages, pathname} from "./Static/Static";
 
 type Props = {} & RouteComponentProps;
@@ -20,7 +20,9 @@ export class Base extends Component<Props, State>{
 
   propUpdate(){
     const langparam: {lang?: string} = this.props.match.params;
-    initLocale(this.props.match.url,this.props.history.location.pathname, langparam.lang);
+    initLocale(this.props.history.location.pathname, langparam.lang);
+    console.log(this.props.match);
+    console.log(Paths.home);
   }
 
   render(){
@@ -33,6 +35,7 @@ export class Base extends Component<Props, State>{
         <Link to={Paths.changelocale(Languages.en())} replace>ENGLISH</Link>
         <Link to={Paths.changelocale(Languages.ceb())} replace>CEBUANO</Link>
         <Link to={Paths.changelocale(Languages.tl())} replace>TAGALOG</Link>
+        <Link to={Paths.changelocale()} replace>DEFAULT</Link>
         <br/>{msg.home}
         <br/>{msg.ok}
         <br/>{msg.cancel}
@@ -42,7 +45,9 @@ export class Base extends Component<Props, State>{
         <Route path={Paths.contact()}  render={()=>{return <p>CONTACT</p>}}/>
         <Route path={Paths.blog()}  render={()=>{return <p>BLOG</p>}}/>
         <Route path={Paths.admin()}  render={()=>{return <p>ADMIN</p>}}/>
-        <Route path={Paths.home()}  render={()=>{return <p>HOME</p>}}/>
+
+        <Route exact path={Paths.home()}  render={()=>{return <p>HOME</p>}}/>
+        <Route render={() => <p>NOT FOUND</p>}/>
       </Switch>
       </div>
     );

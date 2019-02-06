@@ -17,16 +17,15 @@ export const Languages = {
 }
 
 export var current: Locale, msg: Messages, basepath:string, pathname: string;
-export const initLocale:(url:string, pathname:string, param?:string)=>void = (url,path,param) => {
+export const initLocale:(path:string, param?:string)=>void = (path,param) => {
     const alocale = Object.entries(Languages).find((value) => value[1]().active);
     const blocale = Object.entries(Languages).find((value) => value[1]().code === param && value[1]().active);
     const locale: Locale | undefined =  blocale && blocale[1]() || alocale && alocale[1]();
-    const base  = `/${locale && locale.code}`;
+    const base  = locale && locale.code;
     current     = Object.assign({},locale);
     msg         = Object.assign({},require('./'+ (locale && locale.code) +'/').get);
-    basepath    = base;
+    basepath    = param === base ? `/${base}` : '';
     pathname    = path;
-    console.log(basepath,'----',pathname,'----',current);
 }
 
 const getLink:(path: string, parameters?:{}) =>string = (path,parameters) => {
@@ -39,18 +38,27 @@ const getLink:(path: string, parameters?:{}) =>string = (path,parameters) => {
 }
 
 export const Paths = {
-    home:       (params?:{}) =>   {return getLink('/',params)},
+    // USER ROUTES/LINK FUNCTIONS
     blog:       (params?:{}) =>   {return getLink('/blog',params)},
     about:      (params?:{}) =>   {return getLink('/about',params)},
     contact:    (params?:{}) =>   {return getLink('/contact',params)},
     admin:      (params?:{}) =>   {return getLink('/admin',params)},
-    // SPECIAL LINK FUNCTIONS (DO NOT USE FOR ROUTES)
-    changelocale: (locale:Locale) => {
+
+
+
+
+
+    
+    // SPECIAL ROUTES/LINK FUNCTIONS
+    home:       (params?:{}) =>   {return getLink('/',params)},
+    // LOCALE CHANGER - DO NOT USE IN ROUTES
+    changelocale: (locale?:Locale) => {
         const scratch:string[] = pathname.split('/');
         if(scratch[1].length <= 3){
            scratch[1] = scratch[1].replace(`${current.code}`,``); 
-           scratch.shift();
+           if (pathname !== '/' && basepath !== ''){scratch.shift();}
         }
-        return `/${locale.code}${scratch.join('/')}`
+        const loc = locale && `/${locale.code}` || '';
+        return `${loc}${scratch.join('/')}`
     },
 }
