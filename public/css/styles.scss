@@ -1,0 +1,85 @@
+/*RESETTER CODE STARTS HERE*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote {
+  &:before, &:after {
+    content: '';
+    content: none; } }
+
+q {
+  &:before, &:after {
+    content: '';
+    content: none; } }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*ACCENT | EMOTION | TYPOGRAPHY COLORS*/
+$accent-color: #fc4a1a;
+$secondary-accent: #f7b733;
+$tertiary-accent: #4abdac;
+$background: #dfdce3;
+$font-normal: #000000;
+$font-invert: #ffffff;
+$warning: #ffe600;
+$error: #c20000;
+$success: #00bd29;
+$info:  rgb(9, 89, 238);
+
+/*TRANSITIONS*/
+$t2 : 0.2s;
+$t3 : 0.3s;
+$t7 : 0.7s;
+$t10 : 1s;
+$t20 : 2s;
+$tnotif : 5s;
+
+/*BREAKPOINTS*/
+$mobile-small   : (min-width : 240px) and (max-width:359px);
+$mobile         : (min-width : 360px) and (max-width:419px);
+$mobile-wide    : (min-width : 420px) and (max-width:639px);
+$tablet         : (min-width : 640px) and (max-width:767px);
+$tablet-wide    : (min-width : 768px) and (max-width:979px);
+$desktop        : (min-width : 980px) and (max-width:1023px);
+$desktop-wide   : (min-width : 1024px) and (max-width:1365px);
+$desktop-full   : (min-width : 1366px);
+
+/*USER-TYPOGRAPHY*/
+html * {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $font-normal;
+}
+body, div {
+  background-color: $background;
+}
+/*USER-STYLE*/
+a {
+  color: $accent-color;
+  &:visited {
+    color: $secondary-accent;
+  }
+  &:hover, &:visited:hover {
+    color:  $tertiary-accent;
+  }
+}

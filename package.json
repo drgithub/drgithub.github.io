@@ -21,12 +21,13 @@
     "typescript": "3.3.1"
   },
   "scripts": {
-    "start": "set PORT=3006 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "predeploy": "npm run build",
+    "start": "yarn build-sass && set PORT=3006 && react-scripts start",
+    "build": "yarn build-sass && react-scripts build",
+    "test": "yarn build-sass && react-scripts test",
+    "predeploy": "yarn build-sass && npm run build",
     "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-sass" : "node-sass --include-path scss public/css/styles.scss public/css/styles.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": "react-app"
