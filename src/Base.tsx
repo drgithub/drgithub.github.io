@@ -1,53 +1,47 @@
 import React, { Component } from 'react';
-import {Switch, Route, RouteComponentProps, Link, Redirect} from 'react-router-dom';
-import {initLocale, Paths, Locale, current, msg, Languages, pathname} from "./Static/Static";
+import {Switch, Route, RouteComponentProps,} from 'react-router-dom';
+import {initLocale, Paths, setPathName, msg,} from "./Static/Static";
+import { FrontPage } from './Components/PageComponents/FrontPage';
 
-type Props = {} & RouteComponentProps;
-type State = {locale: Locale};
-export class Base extends Component<Props, State>{
+export class Base extends Component<RouteComponentProps, {changes: boolean}>{
   constructor(props: RouteComponentProps) {
     super(props);
-    this.propUpdate();
-    this.state = {locale: current}
+    this.updateLocale();
+    this.state = {changes: true};
   }
 
-  componentDidUpdate(props:Props) {
-    if(this.props !== props){
-      this.propUpdate();
-      this.setState({locale: current});
+  componentDidUpdate(props:RouteComponentProps) {
+    if (this.props !== props) {
+      const cur = this.props.match.url.split('/')[1];
+      const prev = props.match.url.split('/')[1];
+      const matcha = cur.length > 3 ? '' : cur;
+      const matchb = prev.length > 3 ? '' : prev;
+      if (matcha !== matchb) {
+        console.log('Updating Locale to', matcha === '' ? 'default' : matcha);
+        this.updateLocale();
+      } else
+      setPathName(this.props.history);
+      this.setState({changes: !this.state.changes});
     }
   }
 
-  propUpdate(){
+  updateLocale() {
     const langparam: {lang?: string} = this.props.match.params;
-    initLocale(this.props.history.location.pathname, langparam.lang);
+    initLocale(langparam.lang);
+    setPathName(this.props.history);
   }
 
-  render(){
+  render() {
     return (
-      <div>Welcome to Dino's Blog
-        <Link to={Paths.home()}replace>HOME</Link>
-        <Link to={Paths.about()} replace>ABOUT ME</Link>
-        <Link to={Paths.contact()} replace>CONTACT ME</Link>
-        <Link to={Paths.blog()} replace>BLOG</Link>
-        <Link to={Paths.changelocale(Languages.en())} replace>ENGLISH</Link>
-        <Link to={Paths.changelocale(Languages.ceb())} replace>CEBUANO</Link>
-        <Link to={Paths.changelocale(Languages.tl())} replace>TAGALOG</Link>
-        <Link to={Paths.changelocale()} replace>DEFAULT</Link>
-        <br/>{msg.home}
-        <br/>{msg.ok}
-        <br/>{msg.cancel}
-        <br/>{msg.back}
       <Switch>
-        <Route path={Paths.about()} render={()=>{return <p>ABOUT</p>}}/>
-        <Route path={Paths.contact()}  render={()=>{return <p>CONTACT</p>}}/>
-        <Route path={Paths.blog()}  render={()=>{return <p>BLOG</p>}}/>
-        <Route path={Paths.admin()}  render={()=>{return <p>ADMIN</p>}}/>
+        <Route path={Paths.about()} component={() => <FrontPage>ABOUT {msg.back}</FrontPage>}/>
+        <Route path={Paths.contact()} component={() => <FrontPage>CONTACT {msg.home}</FrontPage>}/>
+        <Route path={Paths.blog()}  component={() => <FrontPage>BLOG {msg.ok}</FrontPage>}/>
+        <Route path={Paths.admin()}component={() => <FrontPage>ADMIN {msg.home}</FrontPage>}/>
 
-        <Route exact path={Paths.home()}  render={()=>{return <p>HOME</p>}}/>
+        <Route exact path={Paths.home()} component={() => <FrontPage>HOME {msg.cancel}</FrontPage>}/>
         <Route render={() => <p>NOT FOUND</p>}/>
       </Switch>
-      </div>
     );
   }
 }

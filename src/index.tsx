@@ -5,7 +5,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import { Base } from './Base';
 
 ReactDOM.render(
-<HashRouter>
+<HashRouter basename={process.env.PUBLIC_URL}>
     <Route path={"/:lang?"} render={(props) => <Base {...props}/>} />
 </HashRouter>
 , document.getElementById('root'));
