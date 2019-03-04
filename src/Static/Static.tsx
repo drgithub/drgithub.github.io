@@ -16,7 +16,6 @@ export const Languages = {
     jpn: ()=> {return  {  code: "jpn",  name : "Japanese",  active: false   }}, 
     kor: ()=> {return  {  code: "kor",  name : "Korean",    active: false   }},
 }
-
 export var current: Locale, msg: Messages, basepath:string, pathname: string, search:string, history: H.History;
 export const initLocale: (param?:string)=>void = (param) => {
     const alocale = Object.entries(Languages).find((value) => value[1]().active);
@@ -25,7 +24,7 @@ export const initLocale: (param?:string)=>void = (param) => {
     const base  = locale && locale.code;
     current     = Object.assign({},locale);
     msg         = Object.assign({},require('./'+ (locale && locale.code) +'/').get);
-    basepath    = param === base ? `/${base}` : '';
+    basepath    = param === base ? `/${base}` : ``;
 }
 export const setPathName: (newhistory: H.History)=> void = (newhistory) => {
     history     = newhistory;
@@ -55,7 +54,7 @@ export const  Paths = {
         const scratch:string[] = pathname.split('/');
         if(scratch[1].length <= 3){
            scratch[1] = scratch[1].replace(`${current.code}`,``); 
-           if (pathname !== '/' && basepath !== ''){scratch.shift();}
+           if (pathname !== '/' && basepath !== ``){scratch.shift();}
         }
         const loc = locale && `/${locale.code}` || '';
         return `${loc}${scratch.join('/')}${search && search || ''}`;

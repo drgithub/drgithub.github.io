@@ -24,10 +24,10 @@
     "start": "yarn build-sass && set PORT=3006 && react-scripts start",
     "build": "yarn build-sass && react-scripts build",
     "test": "yarn build-sass && react-scripts test",
-    "predeploy": "yarn build-sass && npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
-    "build-sass" : "node-sass --include-path scss public/css/styles.scss public/css/styles.css --output-style compressed"
+    "build-sass" : "node-sass --include-path scss styles.scss public/css/styles.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": "react-app"
